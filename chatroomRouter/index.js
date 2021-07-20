@@ -5,7 +5,11 @@ const messages = require('../database');
 const router = Router();
 
 router.get('/', (req, res) => {
-  res.send(messages);
+  res.send(
+    messages.sort((a, b) => {
+      return new Date(a.msg_date) - new Date(b.msg_date);
+    })
+  );
 });
 
 router.post('/new_msg', validator, (req, res) => {
